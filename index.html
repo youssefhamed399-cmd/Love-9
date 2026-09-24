@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-إلى دودو 🤍</title>
+<title>دودي 🤍</title>
 
-<!-- خط عربي فخم للشعر -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
@@ -31,7 +30,6 @@
     position: relative;
   }
 
-  /* زخرفة ذهبية في الخلفية */
   body::before {
     content: '';
     position: fixed;
@@ -121,11 +119,11 @@
   }
   .enter-btn:hover::before { transform: translateX(100%); }
 
-  /* ===== مشغل اليوتيوب (مخفي بصريًا) ===== */
+  /* مشغل اليوتيوب المخفي (بيشتغل صوت من الأول) */
   #youtube-player {
     position: fixed;
-    bottom: -200px;
-    left: -200px;
+    bottom: -300px;
+    left: -300px;
     width: 200px;
     height: 200px;
     opacity: 0.01;
@@ -133,7 +131,6 @@
     z-index: 1;
   }
 
-  /* ===== المحتوى ===== */
   .container {
     position: relative;
     z-index: 2;
@@ -143,7 +140,6 @@
     text-align: center;
   }
 
-  /* فاصل ذهبي مزخرف */
   .divider {
     display: flex;
     align-items: center;
@@ -169,7 +165,6 @@
     50% { text-shadow: 0 0 25px rgba(212,175,55,1), 0 0 40px rgba(212,175,55,0.6); }
   }
 
-  /* عنوان القصيدة */
   .poem-title {
     font-family: 'Aref Ruqaa', serif;
     font-size: clamp(1.6rem, 5vw, 2.5rem);
@@ -185,7 +180,6 @@
     letter-spacing: 1px;
   }
 
-  /* القصيدة */
   .poem {
     font-family: 'Amiri', serif;
     font-size: clamp(1.15rem, 3vw, 1.5rem);
@@ -204,22 +198,16 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .poem .verse p {
-    margin: 0;
-  }
-
+  .poem .verse p { margin: 0; }
   .poem .verse p + p {
     margin-top: 5px;
     color: var(--gold-light);
   }
-
-  /* أول حرف من كل بيت */
   .poem .verse p:first-child::first-letter {
     color: var(--gold);
     font-weight: 700;
   }
 
-  /* البيت الأخير مميز */
   .poem .verse.final {
     margin-top: 50px;
     padding: 30px 20px;
@@ -232,25 +220,102 @@
     font-size: 1.15em;
   }
 
-  /* توقيع */
-  .signature {
+  /* ===== قسم الفيديو ===== */
+  .video-section {
+    margin-top: 70px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s, transform 1.2s;
+  }
+  .video-section.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .video-title {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    color: var(--gold);
+    margin-bottom: 25px;
+    text-shadow: 0 0 20px rgba(212,175,55,0.5);
+  }
+  .video-frame {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid var(--gold);
+    box-shadow:
+      0 0 30px rgba(212,175,55,0.4),
+      0 0 60px rgba(212,175,55,0.2);
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  /* ===== الخاتمة ===== */
+  .final-section {
+    margin-top: 70px;
+    padding: 50px 30px;
+    background: linear-gradient(135deg, rgba(74,13,37,0.7), rgba(43,4,16,0.9));
+    border: 2px solid var(--gold);
+    border-radius: 25px;
+    box-shadow: 0 0 50px rgba(212,175,55,0.35);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s, transform 1.2s;
+  }
+  .final-section.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .final-section .heart-big {
+    font-size: 3rem;
+    color: #ff4d6d;
+    display: inline-block;
+    animation: beat 1.5s infinite;
+    margin-bottom: 15px;
+  }
+  @keyframes beat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+  }
+  .final-section h2 {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    color: var(--gold);
+    text-shadow:
+      0 0 20px rgba(212,175,55,0.7),
+      0 0 40px rgba(212,175,55,0.4);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .final-section .signature {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: #e8c88a;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+
+  .signature-inline {
     margin-top: 60px;
     font-family: 'Aref Ruqaa', serif;
     font-size: 1.2rem;
     color: var(--gold);
     opacity: 0.85;
   }
-  .signature .heart {
+  .signature-inline .heart {
     color: #ff4d6d;
     display: inline-block;
     animation: beat 1.5s infinite;
   }
-  @keyframes beat {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-  }
 
-  /* نجوم ذهبية صغيرة بتلمع */
   .sparkle {
     position: fixed;
     color: var(--gold);
@@ -264,7 +329,6 @@
     50% { opacity: 1; transform: scale(1.2); }
   }
 
-  /* زر التحكم في الموسيقى */
   .music-toggle {
     position: fixed;
     top: 20px;
@@ -295,23 +359,24 @@
     .container { padding: 40px 18px 60px; }
     .poem { line-height: 2.2; }
     .poem .verse { margin-bottom: 25px; }
+    .final-section { padding: 35px 20px; }
   }
 </style>
 </head>
 <body>
 
-<!-- مشغل اليوتيوب المخفي -->
+<!-- مشغل اليوتيوب المخفي (الصوت) -->
 <div id="youtube-player"></div>
 
-<!-- زر كتم/تشغيل الموسيقى -->
-<button class="music-toggle" id="musicToggle" onclick="toggleMusic()" title="تشغيل/إيقاف الموسيقى">🔊</button>
+<!-- زر كتم/تشغيل الصوت -->
+<button class="music-toggle" id="musicToggle" onclick="toggleMusic()" title="تشغيل/إيقاف الصوت">🔊</button>
 
 <!-- شاشة الترحيب -->
 <div class="welcome" id="welcome">
   <div class="ornament">❦ ❦ ❦</div>
-  <h1>لدودي</h1>
+  <h1>دودي</h1>
   <p class="subtitle">إلى من سكنت الفؤاد... هذه كلماتي</p>
-  <button class="enter-btn" onclick="enterSite()"> ✨</button>
+  <button class="enter-btn" onclick="enterSite()">ادخلي يا قمر ✨</button>
   <div class="ornament" style="margin-top: 40px;">❦ ❦ ❦</div>
 </div>
 
@@ -321,7 +386,7 @@
   <div class="divider"><span class="symbol">❦</span></div>
 
   <h2 class="poem-title">أُغازلُها وأُسرفُ في هواها</h2>
-  <p class="poem-subtitle">— قصيدة في لينت —</p>
+  <p class="poem-subtitle">— قصيدة في دودي —</p>
 
   <div class="poem" id="poem">
 
@@ -387,16 +452,35 @@
 
   </div>
 
-  <div class="signature">
-  بحبك يا بنوتي <span class="heart">♥</span>
+  <div class="signature-inline">
+    بحبك يا دودي <span class="heart">♥</span>
   </div>
 
   <div class="divider"><span class="symbol">❦</span></div>
 
+  <!-- قسم الفيديو -->
+  <section class="video-section" id="videoSection">
+    <h2 class="video-title">🎵 اسمعي دي كمان</h2>
+    <div class="video-frame">
+      <iframe id="videoFrame"
+        src=""
+        title="YouTube video"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- الخاتمة -->
+  <section class="final-section" id="finalSection">
+    <div class="heart-big">♥</div>
+    <h2>بحبك يابنوتي</h2>
+    <p class="signature">— دايمًا ليكي —</p>
+  </section>
+
 </div>
 
 <script>
-  // ====== إعدادات اليوتيوب ======
   const VIDEO_ID = 'D8VEwqef9XY';
   let player;
   let isPlaying = false;
@@ -415,27 +499,19 @@
         autoplay: 0,
         controls: 0,
         loop: 1,
-        playlist: VIDEO_ID,   // مطلوب للتكرار
+        playlist: VIDEO_ID,
         modestbranding: 1,
         rel: 0,
         playsinline: 1
-      },
-      events: {
-        'onReady': onPlayerReady
       }
     });
   }
 
-  function onPlayerReady(event) {
-    // جاهز — هنشغله لما تدخل
-  }
-
-  // دخول الموقع
   function enterSite() {
     document.getElementById('welcome').classList.add('hide');
     document.getElementById('musicToggle').classList.add('show');
 
-    // تشغيل الفيديو (صوت فقط)
+    // تشغيل الفيديو (صوت)
     if (player && player.playVideo) {
       player.setVolume(60);
       player.playVideo();
@@ -443,11 +519,26 @@
       document.getElementById('musicToggle').textContent = '🔊';
     }
 
-    // تشغيل ظهور الأبيات بالتتابع
     animateVerses();
+
+    // تحميل الفيديو في الإطار (بعد دخول الموقع)
+    setTimeout(() => {
+      const iframe = document.getElementById('videoFrame');
+      iframe.src = `https://www.youtube.com/embed/${VIDEO_ID}?rel=0&modestbranding=1`;
+    }, 800);
+
+    // إظهار قسم الفيديو بعد ما الأبيات تظهر
+    setTimeout(() => {
+      document.getElementById('videoSection').classList.add('show');
+      document.getElementById('videoSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 9000); // بعد ~9 ثواني (وقت ظهور الأبيات كلها)
+
+    // إظهار الخاتمة بعد الفيديو
+    setTimeout(() => {
+      document.getElementById('finalSection').classList.add('show');
+    }, 11000);
   }
 
-  // زر التحكم في الموسيقى
   function toggleMusic() {
     if (!player) return;
     if (isPlaying) {
@@ -460,7 +551,6 @@
     isPlaying = !isPlaying;
   }
 
-  // ظهور الأبيات واحد ورا التاني
   function animateVerses() {
     const verses = document.querySelectorAll('.poem .verse');
     verses.forEach((v, i) => {
@@ -468,7 +558,6 @@
     });
   }
 
-  // نجوم ذهبية بتلمع عشوائيًا
   function createSparkles() {
     for (let i = 0; i < 20; i++) {
       const s = document.createElement('div');
@@ -484,4 +573,4 @@
   createSparkles();
 </script>
 </body>
-  </html>
+ </html>
