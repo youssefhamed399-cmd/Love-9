@@ -41,16 +41,113 @@
     z-index: 0;
   }
 
-  /* مشغل اليوتيوب المخفي (بيشتغل صوت بس) */
-  #youtube-player {
+  /* ===== شاشة الترحيب ===== */
+  .welcome {
     position: fixed;
-    bottom: -300px;
-    left: -300px;
-    width: 200px;
-    height: 200px;
-    opacity: 0.01;
+    inset: 0;
+    background: radial-gradient(ellipse at center, #4a0d25 0%, #2b0410 70%, #0a0005 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    transition: opacity 1.2s, transform 1.2s;
+    text-align: center;
+    padding: 20px;
+  }
+  .welcome.hide {
+    opacity: 0;
+    transform: scale(1.15);
     pointer-events: none;
-    z-index: 1;
+  }
+
+  .welcome .ornament {
+    color: var(--gold);
+    font-size: 2rem;
+    margin-bottom: 20px;
+    letter-spacing: 15px;
+    opacity: 0.8;
+  }
+
+  .welcome h1 {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: clamp(2.8rem, 10vw, 5.5rem);
+    color: var(--gold);
+    text-shadow:
+      0 0 20px rgba(212,175,55,0.6),
+      0 0 40px rgba(212,175,55,0.3);
+    margin-bottom: 20px;
+    line-height: 1.3;
+    animation: fadeInScale 1.5s ease-out;
+  }
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .welcome .subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: #e8c88a;
+    margin-bottom: 50px;
+    font-style: italic;
+    opacity: 0.85;
+    animation: fadeInUp 1.5s ease-out 0.4s backwards;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 0.85; transform: translateY(0); }
+  }
+
+  /* زرار القلب */
+  .heart-btn {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: rgba(74,13,37,0.5);
+    color: var(--gold);
+    font-size: 2.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s;
+    box-shadow:
+      0 0 30px rgba(212,175,55,0.4),
+      inset 0 0 20px rgba(212,175,55,0.15);
+    animation: heartPulse 2s infinite, fadeInUp 1.5s ease-out 0.8s backwards;
+    position: relative;
+  }
+  .heart-btn::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.4);
+    animation: ringPulse 2s infinite;
+  }
+  @keyframes ringPulse {
+    0%,100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.15); opacity: 0; }
+  }
+  @keyframes heartPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  .heart-btn:hover {
+    background: var(--gold);
+    color: var(--burgundy-dark);
+    box-shadow: 0 0 60px rgba(212,175,55,1), inset 0 0 20px rgba(255,255,255,0.2);
+    transform: scale(1.15);
+  }
+
+  .welcome .hint {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #b8925a;
+    font-style: italic;
+    opacity: 0.7;
+    animation: fadeInUp 1.5s ease-out 1.2s backwards;
   }
 
   .container {
@@ -60,7 +157,10 @@
     margin: 0 auto;
     padding: 50px 25px 80px;
     text-align: center;
+    opacity: 0;
+    transition: opacity 1.5s;
   }
+  .container.show { opacity: 1; }
 
   /* ===== عنوان الموقع ===== */
   .site-header {
@@ -92,10 +192,8 @@
     opacity: 0.85;
   }
 
-  /* ===== قسم الفيديو (فوق) ===== */
-  .video-section {
-    margin-bottom: 60px;
-  }
+  /* ===== قسم الفيديو ===== */
+  .video-section { margin-bottom: 60px; }
   .video-title {
     font-family: 'Aref Ruqaa', serif;
     font-size: clamp(1.2rem, 4vw, 1.7rem);
@@ -269,50 +367,30 @@
     50% { opacity: 1; transform: scale(1.2); }
   }
 
-  .music-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid var(--gold);
-    background: rgba(43,4,16,0.85);
-    color: var(--gold);
-    font-size: 1.3rem;
-    cursor: pointer;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-    backdrop-filter: blur(5px);
-  }
-  .music-toggle:hover {
-    background: var(--gold);
-    color: var(--burgundy-dark);
-    transform: scale(1.1);
-  }
-
   @media (max-width: 500px) {
     .container { padding: 30px 18px 60px; }
     .poem { line-height: 2.2; }
     .poem .verse { margin-bottom: 25px; }
     .final-section { padding: 35px 20px; }
     .video-section { margin-bottom: 40px; }
+    .heart-btn { width: 75px; height: 75px; font-size: 2rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- مشغل اليوتيوب المخفي (للصوت) -->
-<div id="youtube-player"></div>
-
-<!-- زر كتم/تشغيل الصوت -->
-<button class="music-toggle" id="musicToggle" onclick="toggleMusic()" title="تشغيل/إيقاف الصوت">🔊</button>
+<!-- شاشة الترحيب -->
+<div class="welcome" id="welcome">
+  <div class="ornament">❦ ❦ ❦</div>
+  <h1>دودي</h1>
+  <p class="subtitle">في حاجة صغيرة عملتهالك من قلبي...</p>
+  <button class="heart-btn" onclick="enterSite()" title="افتحي">♥</button>
+  <p class="hint">دوسي على القلب 💕</p>
+  <div class="ornament" style="margin-top: 30px;">❦ ❦ ❦</div>
+</div>
 
 <!-- المحتوى -->
-<div class="container">
+<div class="container" id="mainContent">
 
   <!-- عنوان الموقع -->
   <header class="site-header">
@@ -325,10 +403,10 @@
   <section class="video-section">
     <h2 class="video-title">🎵 اسمعي دي</h2>
     <div class="video-frame">
-      <iframe id="videoFrame"
+      <iframe
         src="https://www.youtube.com/embed/D8VEwqef9XY?rel=0&modestbranding=1&playsinline=1"
         title="YouTube video"
-        allow="autoplay; encrypted-media; picture-in-picture"
+        allow="encrypted-media; picture-in-picture; fullscreen"
         allowfullscreen>
       </iframe>
     </div>
@@ -420,64 +498,13 @@
 </div>
 
 <script>
-  const VIDEO_ID = 'D8VEwqef9XY';
-  let player;
-  let isPlaying = false;
-
-  // تحميل YouTube IFrame API (للصوت في الخلفية)
-  const tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.head.appendChild(tag);
-
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-player', {
-      height: '200',
-      width: '200',
-      videoId: VIDEO_ID,
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        loop: 1,
-        playlist: VIDEO_ID,
-        modestbranding: 1,
-        rel: 0,
-        playsinline: 1,
-        mute: 0
-      },
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  }
-
-  function onPlayerReady(event) {
-    // محاولة تشغيل الصوت تلقائيًا
-    player.setVolume(60);
-    player.playVideo();
-    isPlaying = true;
-  }
-
-  function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.PLAYING) {
-      isPlaying = true;
-      document.getElementById('musicToggle').textContent = '🔊';
-    } else if (event.data === YT.PlayerState.PAUSED) {
-      isPlaying = false;
-      document.getElementById('musicToggle').textContent = '🔇';
-    }
-  }
-
-  function toggleMusic() {
-    if (!player) return;
-    if (isPlaying) {
-      player.pauseVideo();
-      document.getElementById('musicToggle').textContent = '🔇';
-    } else {
-      player.playVideo();
-      document.getElementById('musicToggle').textContent = '🔊';
-    }
-    isPlaying = !isPlaying;
+  function enterSite() {
+    // اخفاء شاشة الترحيب
+    document.getElementById('welcome').classList.add('hide');
+    // اظهار المحتوى
+    setTimeout(() => {
+      document.getElementById('mainContent').classList.add('show');
+    }, 300);
   }
 
   // ظهور الأبيات بالتتابع
@@ -499,17 +526,6 @@
     }
   }
   createSparkles();
-
-  // لو المتصفح منع التشغيل التلقائي للصوت — نشغله أول ما المستخدم يعمل أي تفاعل
-  function tryAutoplay() {
-    if (player && player.playVideo) {
-      player.setVolume(60);
-      player.playVideo();
-    }
-  }
-  ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
-    document.addEventListener(evt, tryAutoplay, { once: true });
-  });
 </script>
 </body>
  </html>
